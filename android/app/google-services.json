@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "408306176065",
+    "project_id": "ai-career-decision-maker",
+    "storage_bucket": "ai-career-decision-maker.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:408306176065:android:879db1dbc18efd9edab6c0",
+        "android_client_info": {
+          "package_name": "com.example.ai_cybershield"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPgv6bL4o3t31Ze5cTD0L3MbVhs8jsg7c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

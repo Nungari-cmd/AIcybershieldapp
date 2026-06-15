@@ -10,112 +10,79 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('AI CyberShield'), centerTitle: true),
-
+      appBar: AppBar(
+        title: const Text("AI CyberShield Dashboard"),
+        centerTitle: true,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
 
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            const Icon(Icons.security, size: 100, color: Colors.blue),
 
-            children: [
-              /// Dashboard title
-              const Text(
-                'Security Dashboard',
+            const SizedBox(height: 20),
 
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+            const Text(
+              "Welcome to AI CyberShield",
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+
+            const SizedBox(height: 40),
+
+            // THREAT SCREEN BUTTON
+            SizedBox(
+              width: double.infinity,
+              height: 60,
+              child: ElevatedButton.icon(
+                icon: const Icon(Icons.warning_amber),
+                label: const Text("Threat Scanner"),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const ThreatScreen()),
+                  );
+                },
               ),
+            ),
 
-              const SizedBox(height: 30),
+            const SizedBox(height: 15),
 
-              /// System security card
-              Card(
-                child: ListTile(
-                  leading: const Icon(Icons.security, color: Colors.green),
-
-                  title: const Text('System Secure'),
-
-                  subtitle: const Text('No threats detected'),
-                ),
+            // AI ASSISTANT BUTTON
+            SizedBox(
+              width: double.infinity,
+              height: 60,
+              child: ElevatedButton.icon(
+                icon: const Icon(Icons.smart_toy),
+                label: const Text("AI Assistant"),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const AIScreen()),
+                  );
+                },
               ),
+            ),
 
-              const SizedBox(height: 20),
+            const SizedBox(height: 15),
 
-              /// Threat scanner navigation card
-              Card(
-                child: ListTile(
-                  leading: const Icon(Icons.warning, color: Colors.orange),
-
-                  title: const Text('Threat Scanner'),
-
-                  subtitle: const Text('Run AI-powered scan'),
-
-                  trailing: const Icon(Icons.arrow_forward),
-
-                  onTap: () {
-                    Navigator.push(
-                      context,
-
-                      MaterialPageRoute(
-                        builder: (context) => const ThreatScreen(),
-                      ),
-                    );
-                  },
-                ),
+            // PROFILE BUTTON
+            SizedBox(
+              width: double.infinity,
+              height: 60,
+              child: ElevatedButton.icon(
+                icon: const Icon(Icons.person),
+                label: const Text("Profile"),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const ProfileScreen()),
+                  );
+                },
               ),
-
-              const SizedBox(height: 20),
-
-              /// AI assistant navigation card
-              Card(
-                child: ListTile(
-                  leading: const Icon(Icons.smart_toy, color: Colors.cyan),
-
-                  title: const Text('AI Assistant'),
-
-                  subtitle: const Text('Get AI cybersecurity help'),
-
-                  trailing: const Icon(Icons.arrow_forward),
-
-                  onTap: () {
-                    Navigator.push(
-                      context,
-
-                      MaterialPageRoute(
-                        builder: (context) => const AIAssistantScreen(),
-                      ),
-                    );
-                  },
-                ),
-              ),
-
-              const SizedBox(height: 20),
-
-              /// Profile navigation card
-              Card(
-                child: ListTile(
-                  leading: const Icon(Icons.person, color: Colors.purple),
-
-                  title: const Text('Profile'),
-
-                  subtitle: const Text('Manage your account'),
-
-                  trailing: const Icon(Icons.arrow_forward),
-
-                  onTap: () {
-                    Navigator.push(
-                      context,
-
-                      MaterialPageRoute(
-                        builder: (context) => const ProfileScreen(),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
