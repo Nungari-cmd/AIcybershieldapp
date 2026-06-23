@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'login_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -21,15 +22,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Future<void> saveProfile() async {
     final prefs = await SharedPreferences.getInstance();
 
-    await prefs.setString(
-      'username',
-      nameController.text,
-    );
-
-    await prefs.setString(
-      'email',
-      emailController.text,
-    );
+    await prefs.setString('username', nameController.text);
+    await prefs.setString('email', emailController.text);
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
@@ -50,6 +44,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
+  Future<void> logout() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    await prefs.clear();
+
+    if (!mounted) return;
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const LoginScreen(),
+      ),
+      (route) => false,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,10 +72,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
         child: Column(
           children: [
+            const CircleAvatar(
+              radius: 40,
+              child: Icon(
+                Icons.person,
+                size: 50,
+              ),
+            ),
+
+            const SizedBox(height: 30),
+
             TextField(
               controller: nameController,
               decoration: const InputDecoration(
                 labelText: "Username",
+                border: OutlineInputBorder(),
               ),
             ),
 
@@ -75,6 +96,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               controller: emailController,
               decoration: const InputDecoration(
                 labelText: "Email",
+                border: OutlineInputBorder(),
               ),
             ),
 
@@ -83,6 +105,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ElevatedButton(
               onPressed: saveProfile,
               child: const Text("Save Profile"),
+            ),
+
+            const SizedBox(height: 20),
+
+            ElevatedButton.icon(
+              onPressed: logout,
+              icon: const Icon(Icons.logout),
+              label: const Text("Logout"),
             ),
           ],
         ),

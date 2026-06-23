@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dashboard_screen.dart';
+import '../services/local_storage_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -31,6 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     await Future.delayed(const Duration(seconds: 1));
+    await LocalStorageService().saveUser(emailController.text);
 
     if (!mounted) return;
 
