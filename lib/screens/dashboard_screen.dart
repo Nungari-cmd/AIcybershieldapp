@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'event_log_screen.dart';
 import 'threat_screen.dart';
 import 'ai_assistant_screen.dart';
 import 'profile_screen.dart';
@@ -30,6 +30,20 @@ class DashboardScreen extends StatelessWidget {
             ),
 
             const SizedBox(height: 40),
+            Card(
+              child: ListTile(
+                leading: const Icon(Icons.history),
+                title: const Text("Event Logs"),
+                subtitle: const Text("View user interactions"),
+                trailing: const Icon(Icons.arrow_forward),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const EventLogScreen()),
+                  );
+                },
+              ),
+            ),
 
             // THREAT SCREEN BUTTON
             SizedBox(
@@ -59,7 +73,9 @@ class DashboardScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => const AIScreen()),
+                    MaterialPageRoute(
+                      builder: (_) => const AiAssistantScreen(),
+                    ),
                   );
                 },
               ),

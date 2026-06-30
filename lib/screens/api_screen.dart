@@ -14,8 +14,8 @@ class _ApiScreenState extends State<ApiScreen> {
 
   @override
   void initState() {
+    users = api.fetchUsers();
     super.initState();
-    users = api.fetchData();
   }
 
   @override

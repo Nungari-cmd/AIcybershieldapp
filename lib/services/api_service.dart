@@ -28,54 +28,47 @@ class ApiService {
       },
       {
         "name": "Phishing Link Detected",
-        "description":
-            "A suspicious link was detected in incoming messages.",
+        "description": "A suspicious link was detected in incoming messages.",
         "severity": "Medium",
       },
       {
         "name": "Malware Signature Found",
-        "description":
-            "Possible malware activity detected on the device.",
+        "description": "Possible malware activity detected on the device.",
         "severity": "High",
       },
       {
         "name": "Unusual Network Activity",
-        "description":
-            "Abnormal data traffic detected in the background.",
+        "description": "Abnormal data traffic detected in the background.",
         "severity": "Low",
       },
     ];
 
-    return threats[
-        DateTime.now().second % threats.length];
+    return threats[DateTime.now().second % threats.length];
   }
 
   // AI Assistant responses
-  Future<String> askAI(String question) async {
-    await Future.delayed(const Duration(seconds: 2));
+Future<String> askAI(
+  String question,
+) async {
+  await Future.delayed(
+    const Duration(seconds: 2),
+  );
 
-    question = question.toLowerCase();
+  final q =
+      question.toLowerCase();
 
-    if (question.contains("phishing")) {
-      return "Do not click suspicious links and always verify the sender before opening emails or messages.";
-    }
-
-    if (question.contains("malware")) {
-      return "Run a full system scan, remove suspicious apps, and keep your antivirus updated.";
-    }
-
-    if (question.contains("password")) {
-      return "Use strong passwords with letters, numbers, and symbols. Enable two-factor authentication.";
-    }
-
-    if (question.contains("wifi")) {
-      return "Avoid public Wi-Fi networks or use a VPN to protect your data.";
-    }
-
-    if (question.contains("virus")) {
-      return "Update your antivirus and perform a complete device scan immediately.";
-    }
-
-    return "I recommend keeping your device updated, avoiding suspicious downloads, and enabling security features.";
+  if (q.contains("phishing")) {
+    return "Phishing emails usually ask for passwords or personal information. Avoid clicking suspicious links.";
   }
+
+  if (q.contains("password")) {
+    return "Use a strong password with uppercase, lowercase, numbers and symbols.";
+  }
+
+  if (q.contains("virus")) {
+    return "Keep your antivirus updated and avoid downloading files from unknown sources.";
+  }
+
+  return "I am still learning. Please ask another cybersecurity question.";
+}
 }
