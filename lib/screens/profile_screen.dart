@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'login_screen.dart';
+import 'package:provider/provider.dart';
+import '../theme/theme_provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -25,22 +27,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
     await prefs.setString('username', nameController.text);
     await prefs.setString('email', emailController.text);
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text("Profile Saved"),
-      ),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text("Profile Saved")));
   }
 
   Future<void> loadProfile() async {
     final prefs = await SharedPreferences.getInstance();
 
     setState(() {
-      nameController.text =
-          prefs.getString('username') ?? '';
+      nameController.text = prefs.getString('username') ?? '';
 
-      emailController.text =
-          prefs.getString('email') ?? '';
+      emailController.text = prefs.getString('email') ?? '';
     });
   }
 
@@ -53,9 +51,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(
-        builder: (context) => const LoginScreen(),
-      ),
+      MaterialPageRoute(builder: (context) => const LoginScreen()),
       (route) => false,
     );
   }
@@ -63,22 +59,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Profile"),
-      ),
+      appBar: AppBar(title: const Text("Profile")),
 
       body: Padding(
         padding: const EdgeInsets.all(20),
 
         child: Column(
           children: [
-            const CircleAvatar(
-              radius: 40,
-              child: Icon(
-                Icons.person,
-                size: 50,
-              ),
-            ),
+            const CircleAvatar(radius: 40, child: Icon(Icons.person, size: 50)),
 
             const SizedBox(height: 30),
 
@@ -99,16 +87,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 border: OutlineInputBorder(),
               ),
             ),
+            const SizedBox(height: 20),
 
-            const SizedBox(height: 30),
+            Consumer<ThemeProvider>(
+              builder: (context, themeProvider, child) {
+                return SwitchListTile(
+                  title: const Text("Dark Mode"),
+                  subtitle: const Text("Enable dark theme"),
+                  secondary: const Icon(Icons.dark_mode),
+                  value: themeProvider.isDark,
+                  onChanged: (value) {
+                    themeProvider.toggleTheme(value);
+                  },
+                );
+              },
+            ),
+
+            const SizedBox(height: 20),
 
             ElevatedButton(
               onPressed: saveProfile,
               child: const Text("Save Profile"),
             ),
-
-            const SizedBox(height: 20),
-
             ElevatedButton.icon(
               onPressed: logout,
               icon: const Icon(Icons.logout),
